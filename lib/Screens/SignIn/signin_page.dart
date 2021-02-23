@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
       key: _scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
-        title: Text("GeeksForGeeks"),
+        title: Text("Adda Engineerimg Safar"),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),

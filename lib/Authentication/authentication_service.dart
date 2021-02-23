@@ -53,10 +53,24 @@ class AuthenticationService {
   }
 
 //3
-  Future<void> addUserToDB(
-      {String uid, String username, String email, DateTime timestamp}) async {
+  Future<void> addUserToDB({
+    String uid,
+    String username,
+    String email,
+    String university,
+    String program,
+    String semester,
+    DateTime timestamp,
+  }) async {
     userModel = UserModel(
-        uid: uid, username: username, email: email, timestamp: timestamp);
+      uid: uid,
+      username: username,
+      email: email,
+      university: university,
+      program: program,
+      semester: semester,
+      timestamp: timestamp,
+    );
 
     await userRef.doc(uid).set(userModel.toMap(userModel));
   }

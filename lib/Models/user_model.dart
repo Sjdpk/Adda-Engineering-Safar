@@ -2,9 +2,20 @@ class UserModel {
   String email;
   String uid;
   String username;
+  String university;
+  String program;
+  String semester;
   DateTime timestamp;
 
-  UserModel({this.email, this.uid, this.username, this.timestamp});
+  UserModel({
+    this.email,
+    this.uid,
+    this.username,
+    this.university,
+    this.program = 'Pokhara University',
+    this.semester,
+    this.timestamp,
+  });
 
   Map toMap(UserModel user) {
     var data = Map<String, dynamic>();
@@ -12,6 +23,9 @@ class UserModel {
     data["uid"] = user.uid;
     data["username"] = user.username;
     data["email"] = user.email;
+    data['university'] = user.university;
+    data['pogram'] = user.program;
+    data['semester'] = user.semester;
     data["timestamp"] = user.timestamp;
 
     return data;
@@ -21,5 +35,8 @@ class UserModel {
     this.uid = mapData["uid"];
     this.username = mapData["username"];
     this.email = mapData["email"];
+    this.university = mapData["university"];
+    this.program = mapData["program"];
+    this.semester = mapData["semester"];
   }
 }

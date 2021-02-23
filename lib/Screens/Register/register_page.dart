@@ -11,11 +11,11 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
 //To Toggle Password Text Visibility.
   bool _obscureText = true;
-  String _username, _email, _password;
+  String _username, _email, _program, _semester, _password;
 
 //For the loading state.
   bool _isSubmitting;
-
+  String _university = 'Pokhara University';
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -26,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(title: Text("GeeksForGeeks"), centerTitle: true),
+      appBar: AppBar(title: Text("Adda Engineerimg Safar"), centerTitle: true),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
@@ -37,6 +37,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   _showTitle(),
                   _showUsernameInput(),
+                  _showProgramInput(),
+                  _showSemesterInput(),
                   _showEmailInput(),
                   _showPasswordInput(),
                   _showFormActions()
@@ -68,6 +70,43 @@ class _RegisterPageState extends State<RegisterPage> {
             border: OutlineInputBorder(),
             labelText: "Username",
             hintText: "Enter Valid Username",
+            icon: Icon(
+              Icons.face,
+              color: Colors.grey,
+            )),
+      ),
+    );
+  }
+
+//
+  _showProgramInput() {
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: TextFormField(
+        onSaved: (val) => _program = val,
+        validator: (val) => val.length < 3 ? "Program is too short." : null,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: "Program",
+            hintText: "Enter Valid Program",
+            icon: Icon(
+              Icons.priority_high_sharp,
+              color: Colors.grey,
+            )),
+      ),
+    );
+  }
+
+  _showSemesterInput() {
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: TextFormField(
+        onSaved: (val) => _semester = val,
+        validator: (val) => val.length > 1 ? "Semester is too long." : null,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: "Semester",
+            hintText: "Enter Valid Semester",
             icon: Icon(
               Icons.face,
               color: Colors.grey,
@@ -214,9 +253,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
   createUserInFirestore() async {
     context.read<AuthenticationService>().addUserToDB(
-        uid: auth.currentUser.uid,
-        username: _username,
-        email: auth.currentUser.email,
-        timestamp: timestamp);
+          uid: auth.currentUser.uid,
+          username: _username,
+          email: auth.currentUser.email,
+          university: _university,
+          program: _program,
+          semester: _semester,
+          timestamp: timestamp,
+        );
   }
 }
