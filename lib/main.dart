@@ -1,4 +1,4 @@
-import 'package:adda/Screens/Home/home_page.dart';
+import 'package:adda/Screens/main_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
                 context.read<AuthenticationService>().authStateChanges),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            brightness: Brightness.dark,
             primaryColor: Colors.green[400],
             accentColor: Colors.deepOrange[200]),
         home: AuthenticationWrapper(),
@@ -44,7 +44,7 @@ class AuthenticationWrapper extends StatelessWidget {
 
     if (firebaseUser != null) {
       //If the user is successfully Logged-In.
-      return HomePage();
+      return MainPage();
     } else {
       //If the user is not Logged-In.
       return AuthScreenView();

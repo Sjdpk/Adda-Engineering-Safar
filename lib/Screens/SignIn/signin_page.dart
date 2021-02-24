@@ -1,6 +1,9 @@
 import 'package:adda/Authentication/authentication_service.dart';
+import 'package:adda/Screens/Register/register_page.dart';
+import 'package:adda/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,25 +24,30 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Adda Engineerimg Safar"),
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  _showTitle(),
-                  _showEmailInput(),
-                  _showPasswordInput(),
-                  _showFormActions()
-                ],
+    final size = MediaQuery.of(context).size;
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    _showTitle(),
+                    SizedBox(height: size.height * 0.03),
+                    SvgPicture.asset(
+                      "assets/icons/login.svg",
+                      height: size.height * 0.35,
+                    ),
+                    _showEmailInput(),
+                    _showPasswordInput(),
+                    _showFormActions(),
+                    _showSwitchScreen(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -50,53 +58,102 @@ class _LoginPageState extends State<LoginPage> {
 
   _showTitle() {
     return Text(
-      "Login",
-      style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+      "Explor Aadda Engineering Sarathi",
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 19,
+      ),
     );
   }
 
   _showEmailInput() {
-    return Padding(
-      padding: EdgeInsets.only(top: 20),
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 20, left: 10),
+      padding: EdgeInsets.only(left: 30, right: 10),
+      decoration: BoxDecoration(
+        color: Constant.kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
       child: TextFormField(
         onSaved: (val) => _email = val,
         validator: (val) => !val.contains("@") ? "Invalid Email" : null,
         decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: "Email",
-            hintText: "Enter Valid Email",
-            icon: Icon(
-              Icons.mail,
-              color: Colors.grey,
-            )),
+          hintText: "Enter Valid Email",
+          icon: Icon(
+            Icons.mail,
+            color: Constant.kPrimaryColor,
+          ),
+          border: InputBorder.none,
+        ),
       ),
     );
   }
 
   _showPasswordInput() {
-    return Padding(
-      padding: EdgeInsets.only(top: 20),
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 20, left: 10),
+      padding: EdgeInsets.only(left: 30, right: 10),
+      decoration: BoxDecoration(
+        color: Constant.kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
       child: TextFormField(
         onSaved: (val) => _password = val,
         validator: (val) => val.length < 6 ? "Password Is Too Short" : null,
         obscureText: _obscureText,
         decoration: InputDecoration(
-            suffixIcon: GestureDetector(
-              onTap: () {
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
-              },
-              child:
-                  Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+          ),
+          border: InputBorder.none,
+          hintText: "Enter Valid Password",
+          icon: Icon(
+            Icons.lock,
+            color: Constant.kPrimaryColor,
+          ),
+        ),
+      ),
+    );
+  }
+
+  _showSwitchScreen() {
+    return Container(
+      margin: EdgeInsets.only(top: 20, bottom: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Don't have an Account ? ",
+            style: TextStyle(fontSize: 17, color: Constant.kPrimaryColor),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return RegisterPage();
+                  },
+                ),
+              );
+            },
+            child: Text(
+              "SignUp",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Constant.kPrimaryColor,
+                fontSize: 18,
+              ),
             ),
-            border: OutlineInputBorder(),
-            labelText: "Password",
-            hintText: "Enter Valid Password",
-            icon: Icon(
-              Icons.lock,
-              color: Colors.grey,
-            )),
+          ),
+        ],
       ),
     );
   }
@@ -111,16 +168,29 @@ class _LoginPageState extends State<LoginPage> {
                   valueColor:
                       AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                 )
-              : RaisedButton(
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+              : Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.only(top: 20, left: 10),
+                  padding: EdgeInsets.only(left: 30, right: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Constant.kPrimaryColor,
+                    border: Border.all(
+                      color: Constant.kPrimaryColor,
+                    ),
                   ),
-                  elevation: 8.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  color: Colors.orange,
-                  onPressed: _submit),
+                  child: RaisedButton(
+                    child: Text(
+                      "Submit",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                    elevation: 0.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    color: Constant.kPrimaryColor,
+                    onPressed: _submit,
+                  ),
+                ),
         ],
       ),
     );

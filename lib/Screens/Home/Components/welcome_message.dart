@@ -1,21 +1,38 @@
+import 'package:adda/components/constants.dart';
+
 import '../Components/search_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-Widget welcomeMessage() {
+Widget welcomeMessage(String userName) {
   return Container(
     margin: EdgeInsets.all(10),
     child: Column(
       // mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Hey Deepak,',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-            letterSpacing: 1,
+        RichText(
+          text: TextSpan(
+            children: <TextSpan>[
+              TextSpan(
+                text: 'Hey ',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+              ),
+              TextSpan(
+                text: '$userName',
+                style: TextStyle(
+                  color: Constant.kPrimaryColor,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+              ),
+            ],
           ),
         ),
         SizedBox(

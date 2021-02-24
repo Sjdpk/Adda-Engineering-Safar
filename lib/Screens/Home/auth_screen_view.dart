@@ -50,22 +50,26 @@ class _AuthScreenViewState extends State<AuthScreenView> {
         controller: pageController,
         onPageChanged: onPageChanged,
       ),
-      bottomNavigationBar: CupertinoTabBar(
-        currentIndex: pageIndex,
-        onTap: onTap,
-        activeColor: Theme.of(context).primaryColor,
-        items: [
-          BottomNavigationBarItem(
+      bottomNavigationBar: Container(
+        height: 0,
+        child: BottomNavigationBar(
+          currentIndex: pageIndex,
+          onTap: onTap,
+          selectedItemColor: Colors.black,
+          items: [
+            BottomNavigationBarItem(
               label: "Log-In",
               icon: Icon(
-                Icons.signal_wifi_4_bar,
-              )),
-          BottomNavigationBarItem(
-              label: "Register",
-              icon: Icon(
-                Icons.new_releases,
-              )),
-        ],
+                Icons.account_circle,
+              ),
+            ),
+            BottomNavigationBarItem(
+                label: "Register",
+                icon: Icon(
+                  Icons.new_releases,
+                )),
+          ],
+        ),
       ),
     );
   }

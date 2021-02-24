@@ -11,8 +11,8 @@ class UserModel {
     this.email,
     this.uid,
     this.username,
-    this.university,
-    this.program = 'Pokhara University',
+    this.university = 'Pokhara University',
+    this.program,
     this.semester,
     this.timestamp,
   });

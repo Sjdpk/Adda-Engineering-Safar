@@ -1,9 +1,16 @@
 import 'package:adda/Authentication/authentication_service.dart';
+import 'package:adda/Models/note_data_details.dart';
 import 'package:adda/Models/user_model.dart';
+import 'package:adda/Screens/Details/details_screen.dart';
+import 'package:adda/Screens/Home/auth_screen_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'Components/notes_cards.dart';
+import 'Components/semesters.dart';
+import 'Components/welcome_message.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,9 +23,10 @@ class _HomePageState extends State<HomePage> {
       FirebaseFirestore.instance.collection("users");
   UserModel _currentUser;
 
-  String _uid;
+  // String _uid;
   String _username;
-  String _email;
+  // String _semester;
+  // String _email;
 
   @override
   void initState() {
@@ -36,44 +44,64 @@ class _HomePageState extends State<HomePage> {
     print("${_currentUser.username}");
 
     setState(() {
-      _uid = _currentUser.uid;
+      // _uid = _currentUser.uid;
       _username = _currentUser.username;
-      _email = _currentUser.email;
+      // _semester = _currentUser.semester;
+      // _email = _currentUser.email;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("HomePage"),
-        centerTitle: true,
-      ),
-      body: _currentUser == null
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return _currentUser == null
+        ? Center(
+            child: Column(
               children: [
-                Text(_uid),
-                Text(_email),
-                Text(_username),
-                Center(
-                  child: RaisedButton(
-                    child: Text(
-                      "Logout",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                    elevation: 8.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    color: Colors.orange,
-                    onPressed: () {
-                      context.read<AuthenticationService>().signOut();
-                    },
-                  ),
-                ),
+                CircularProgressIndicator(),
+                FlatButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AuthScreenView();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text('Home page'),
+                )
               ],
             ),
-    );
+          )
+        : ListView(
+            // shrinkWrap: true,
+            // physics: ClampingScrollPhysics(),
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              welcomeMessage(_username),
+              Semesters(),
+              ListView.builder(
+                padding: EdgeInsets.all(13),
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                itemCount: 6,
+                itemBuilder: (context, index) => Notescard(
+                  notesDataDetails: noteDetails[index],
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return DetailsScreen(
+                              noteDataDetails: noteDetails[index]);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
   }
 }

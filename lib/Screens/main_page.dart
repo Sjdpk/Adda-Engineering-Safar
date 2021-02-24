@@ -2,13 +2,11 @@ import 'package:adda/Authentication/authentication_service.dart';
 import 'package:adda/Screens/Explore/explore_notes.dart';
 import 'package:adda/Screens/Favourite/favourite_notes.dart';
 import 'package:adda/Screens/Home/home_page.dart';
-import 'package:adda/Screens/Welcome/welcome_screen.dart';
+import 'package:adda/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
-
-import 'Home/all_notes.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -20,7 +18,6 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    AllNotes(),
     ExploreNotes(),
     FavouriteNotes(),
   ];
@@ -32,10 +29,13 @@ class _MainPageState extends State<MainPage> {
       // backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white30,
-        elevation: 0,
+        elevation: 0.0,
         title: const Text(
           'Adda Enineering Sarathi',
-          style: TextStyle(color: Colors.black, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 22,
+          ),
         ),
         actions: [
           Padding(
@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        elevation: 5,
+                        elevation: 1,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Container(
@@ -71,7 +71,6 @@ class _MainPageState extends State<MainPage> {
                                     context
                                         .read<AuthenticationService>()
                                         .signOut();
-                                    return WelcomeScreen();
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -118,7 +117,7 @@ class _MainPageState extends State<MainPage> {
                 rippleColor: Colors.grey[300],
                 hoverColor: Colors.grey[100],
                 gap: 8,
-                activeColor: Colors.black,
+                activeColor: Constant.blueMain,
                 iconSize: 24,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: Duration(milliseconds: 400),
@@ -126,10 +125,6 @@ class _MainPageState extends State<MainPage> {
                 tabs: [
                   GButton(
                     icon: LineIcons.home,
-                    text: 'Home',
-                  ),
-                  GButton(
-                    icon: LineIcons.internetExplorer,
                     text: 'Home',
                   ),
                   GButton(
