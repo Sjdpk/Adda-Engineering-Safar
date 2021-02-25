@@ -283,8 +283,7 @@ class _RegisterPageState extends State<RegisterPage> {
         children: [
           _isSubmitting == true
               ? CircularProgressIndicator(
-                  valueColor:
-                      AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+                  valueColor: AlwaysStoppedAnimation(Colors.green),
                 )
               : Container(
                   width: double.infinity,

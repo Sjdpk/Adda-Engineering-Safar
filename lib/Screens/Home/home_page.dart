@@ -58,7 +58,9 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
     return _currentUser == null
         ? Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(Colors.green),
+            ),
           )
         : Scaffold(
             body: DefaultTabController(
