@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NoteDataDetails {
-  final String noteId,
+  String noteId,
       noteTitle,
       noteCredit,
       creditHour,
@@ -12,7 +12,7 @@ class NoteDataDetails {
       coverImage,
       noteDetails,
       noteUrl;
-  final Color color;
+  Color color;
 
   NoteDataDetails({
     this.noteId,
@@ -27,6 +27,34 @@ class NoteDataDetails {
         'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
     this.color = Colors.lightBlue,
   });
+
+  Map toMap(NoteDataDetails note) {
+    var data = Map<String, dynamic>();
+
+    data["noteId"] = note.noteId;
+    data["noteTitle"] = note.noteTitle;
+    data["noteCredit"] = note.noteCredit;
+    data['creditHour'] = note.creditHour;
+    data['noteProgram'] = note.noteProgram;
+    data['noteSemester'] = note.noteSemester;
+    data["coverImage"] = note.coverImage;
+    data['noteDetails'] = note.noteDetails;
+    data["noteUrl"] = note.noteUrl;
+
+    return data;
+  }
+
+  NoteDataDetails.fromMap(Map<String, dynamic> mapData) {
+    this.noteId = mapData['noteId'];
+    this.noteTitle = mapData['noteTitle'];
+    this.noteCredit = mapData['noteCredit'];
+    this.creditHour = mapData['creditHour'];
+    this.noteProgram = mapData['noteProgram'];
+    this.noteSemester = mapData['noteSemester'];
+    this.coverImage = mapData['coverImage'];
+    this.noteDetails = mapData['noteDetails'];
+    this.noteUrl = mapData['noteUrl'];
+  }
 }
 
 final List<NoteDataDetails> noteDetails = [
