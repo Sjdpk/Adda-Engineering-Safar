@@ -24,7 +24,7 @@ class UserModel {
     data["username"] = user.username;
     data["email"] = user.email;
     data['university'] = user.university;
-    data['pogram'] = user.program;
+    data['program'] = user.program;
     data['semester'] = user.semester;
     data["timestamp"] = user.timestamp;
 

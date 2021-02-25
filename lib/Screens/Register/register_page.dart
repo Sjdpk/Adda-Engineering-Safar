@@ -1,4 +1,5 @@
 import 'package:adda/Authentication/authentication_service.dart';
+import 'package:adda/Screens/SignIn/signin_page.dart';
 import 'package:adda/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -220,7 +221,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return RegisterPage();
+                    return LoginPage();
                   },
                 ),
               );

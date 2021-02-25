@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
 
   _showTitle() {
     return Text(
-      "Explor Aadda Engineering Sarathi",
+      "Explore Aadda Engineering Sarathi",
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 19,
@@ -181,8 +181,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: RaisedButton(
                     child: Text(
-                      "Submit",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      "SIGNIN",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(

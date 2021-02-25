@@ -28,12 +28,18 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white30,
+        backgroundColor: Constant.kPrimaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.elliptical(20, 7),
+            bottomRight: Radius.elliptical(20, 7),
+          ),
+        ),
         elevation: 0.0,
         title: const Text(
           'Adda Enineering Sarathi',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 22,
           ),
         ),
@@ -60,7 +66,7 @@ class _MainPageState extends State<MainPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Are you Sure ? ',
+                                  'Update Profile ? ',
                                   style: TextStyle(fontSize: 22),
                                 ),
                                 SizedBox(

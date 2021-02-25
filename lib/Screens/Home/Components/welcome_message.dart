@@ -4,7 +4,7 @@ import '../Components/search_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-Widget welcomeMessage(String userName) {
+Widget welcomeMessage(String userName, String program, String semester) {
   return Container(
     margin: EdgeInsets.all(10),
     child: Column(
@@ -24,11 +24,35 @@ Widget welcomeMessage(String userName) {
                 ),
               ),
               TextSpan(
-                text: '$userName',
+                text: userName.substring(0, 1).toUpperCase() +
+                    userName.substring(1),
                 style: TextStyle(
                   color: Constant.kPrimaryColor,
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 4),
+        RichText(
+          text: TextSpan(
+            children: <TextSpan>[
+              TextSpan(
+                text: program + ' : ',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  letterSpacing: 1,
+                ),
+              ),
+              TextSpan(
+                text: semester,
+                style: TextStyle(
+                  color: Constant.kPrimaryColor,
+                  fontSize: 16,
                   letterSpacing: 1,
                 ),
               ),

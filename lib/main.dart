@@ -1,4 +1,5 @@
 import 'package:adda/Screens/main_page.dart';
+import 'package:adda/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primaryColor: Colors.green[400],
+            primaryColor: Constant.lightBackground,
             accentColor: Colors.deepOrange[200]),
         home: AuthenticationWrapper(),
       ),
