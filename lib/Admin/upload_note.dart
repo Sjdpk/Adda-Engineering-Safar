@@ -156,7 +156,7 @@ class _UploadNotesState extends State<UploadNotes> {
       ),
       child: TextFormField(
         cursorColor: Constant.kPrimaryColor,
-        onSaved: (val) => _creditHour = val,
+        onSaved: (val) => _noteCredit = val,
         validator: (val) => val.length < lengthLimit ? errorMsg : null,
         decoration: InputDecoration(
           hintText: hitTextMsg,
@@ -181,7 +181,7 @@ class _UploadNotesState extends State<UploadNotes> {
       ),
       child: TextFormField(
         cursorColor: Constant.kPrimaryColor,
-        onSaved: (val) => _noteCredit = val,
+        onSaved: (val) => _creditHour = val,
         validator: (val) => val.length < lengthLimit ? errorMsg : null,
         decoration: InputDecoration(
           hintText: hitTextMsg,

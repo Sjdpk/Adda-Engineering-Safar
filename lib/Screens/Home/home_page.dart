@@ -134,8 +134,32 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Center(
-                        child:
-                            Icon(Icons.forum, size: 64.0, color: Colors.blue)),
+                      child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('noteDetails')
+                            .doc(_program)
+                            .collection(_semester)
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return ListView(
+                            children: snapshot.data.docs.map((document) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width / 1.2,
+                                height: MediaQuery.of(context).size.height / 6,
+                                child: Text(
+                                    'Note Name : ' + document['noteTitle']),
+                              );
+                            }).toList(),
+                          );
+                        },
+                      ),
+                    ),
                     Center(
                         child:
                             Icon(Icons.forum, size: 64.0, color: Colors.blue)),

@@ -1,4 +1,3 @@
-import 'package:adda/Admin/upload_note.dart';
 import 'package:adda/Authentication/authentication_service.dart';
 import 'package:adda/Screens/Explore/explore_notes.dart';
 import 'package:adda/Screens/Favourite/favourite_notes.dart';
@@ -8,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+
+import 'Component/drawer_widget.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -28,21 +29,7 @@ class _MainPageState extends State<MainPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       drawer: Drawer(
-        child: SafeArea(
-          child: ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return UploadNotes();
-                  },
-                ),
-              );
-            },
-            title: Text('Upload Notes'),
-          ),
-        ),
+        child: DrawerWidget(),
       ),
       // backgroundColor: Colors.white,
       appBar: AppBar(
