@@ -1,7 +1,6 @@
-import 'package:adda/Authentication/upload_download_notes.dart';
 import 'package:adda/components/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class UploadNotes extends StatefulWidget {
   @override
@@ -45,39 +44,34 @@ class _UploadNotesState extends State<UploadNotes> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    _showTitle(),
-                    _buildtextField(_noteId, "Course Code is too short.",
-                        "Enter Valid Course Code", 6),
-                    _buildtextField(_noteTitle, "Course Title is too short.",
-                        "Enter Valid Course Title", 6),
-                    _buildtextField(
-                        _noteCredit,
-                        "Invalid Course Provider Name.",
-                        "Course Credit Goes To",
-                        6),
-                    _buildtextField(_creditHour, "Invalid Course Credit Hour.",
-                        "Course Credit Hour", 1),
-                    _showProgramInput(),
-                    _showSemesterInput(),
-                    _buildtextField(_coverImage, "Not Valid Url ",
-                        "Paste Cover Image URL ", 8),
-                    _buildtextField(_noteDetails, "Too Short Details ",
-                        "Enter Note Details", 12),
-                    _buildtextField(
-                        _noteUrl, "Not Valid Url ", "Paste Note PDF URL ", 6),
-                    _showFormActions(),
-                  ],
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        title: _showTitle(),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  _buildUidField(),
+                  _buildTitleField(),
+                  _buildCreditGoesToField("Invalid Course Provider Name.",
+                      "Course Credit Goes To", 6),
+                  _buildCreditHoursField(
+                      "Invalid Course Credit Hour.", "Course Credit Hour", 1),
+                  _showProgramInput(),
+                  _showSemesterInput(),
+                  _buildCoverImageField(
+                      "Not Valid Url ", "Paste Cover Image URL ", 8),
+                  _buildDetailsField(
+                      "Too Short Details ", "Enter Note Details", 12),
+                  _buildURLField("Not Valid Url ", "Paste Note PDF URL ", 6),
+                  _showFormActions(),
+                ],
               ),
             ),
           ),
@@ -97,8 +91,8 @@ class _UploadNotesState extends State<UploadNotes> {
     );
   }
 
-//2
-  _buildtextField(String onSavedvalue, errorMsg, hitTextMsg, int lengthLimit) {
+//UID
+  _buildUidField() {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: 20, left: 10),
@@ -109,7 +103,85 @@ class _UploadNotesState extends State<UploadNotes> {
       ),
       child: TextFormField(
         cursorColor: Constant.kPrimaryColor,
-        onSaved: (val) => onSavedvalue = val,
+        onSaved: (val) => _noteId = val,
+        validator: (val) => val.length < 6 ? "Course Code is too short." : null,
+        decoration: InputDecoration(
+          hintText: "Enter Valid Course Code",
+          icon: Icon(
+            Icons.upload_file,
+            color: Constant.kPrimaryColor,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+// Title Field
+  _buildTitleField() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 20, left: 10),
+      padding: EdgeInsets.only(left: 30, right: 10),
+      decoration: BoxDecoration(
+        color: Constant.kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: TextFormField(
+        cursorColor: Constant.kPrimaryColor,
+        onSaved: (val) => _noteTitle = val,
+        validator: (val) =>
+            val.length < 6 ? "Course Title is too short." : null,
+        decoration: InputDecoration(
+          hintText: "Enter Valid Course Title",
+          icon: Icon(
+            Icons.upload_file,
+            color: Constant.kPrimaryColor,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+// Course Credit Goes To
+  _buildCreditGoesToField(String errorMsg, hitTextMsg, int lengthLimit) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 20, left: 10),
+      padding: EdgeInsets.only(left: 30, right: 10),
+      decoration: BoxDecoration(
+        color: Constant.kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: TextFormField(
+        cursorColor: Constant.kPrimaryColor,
+        onSaved: (val) => _creditHour = val,
+        validator: (val) => val.length < lengthLimit ? errorMsg : null,
+        decoration: InputDecoration(
+          hintText: hitTextMsg,
+          icon: Icon(
+            Icons.upload_file,
+            color: Constant.kPrimaryColor,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+  _buildCreditHoursField(String errorMsg, hitTextMsg, int lengthLimit) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 20, left: 10),
+      padding: EdgeInsets.only(left: 30, right: 10),
+      decoration: BoxDecoration(
+        color: Constant.kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: TextFormField(
+        cursorColor: Constant.kPrimaryColor,
+        onSaved: (val) => _noteCredit = val,
         validator: (val) => val.length < lengthLimit ? errorMsg : null,
         decoration: InputDecoration(
           hintText: hitTextMsg,
@@ -184,9 +256,83 @@ class _UploadNotesState extends State<UploadNotes> {
     );
   }
 
-//
+//COurse Cover Image
+  _buildCoverImageField(String errorMsg, hitTextMsg, int lengthLimit) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 20, left: 10),
+      padding: EdgeInsets.only(left: 30, right: 10),
+      decoration: BoxDecoration(
+        color: Constant.kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: TextFormField(
+        cursorColor: Constant.kPrimaryColor,
+        onSaved: (val) => _coverImage = val,
+        validator: (val) => val.length < lengthLimit ? errorMsg : null,
+        decoration: InputDecoration(
+          hintText: hitTextMsg,
+          icon: Icon(
+            Icons.upload_file,
+            color: Constant.kPrimaryColor,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
 
-//4
+//COurse Details
+  _buildDetailsField(String errorMsg, hitTextMsg, int lengthLimit) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 20, left: 10),
+      padding: EdgeInsets.only(left: 30, right: 10),
+      decoration: BoxDecoration(
+        color: Constant.kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: TextFormField(
+        cursorColor: Constant.kPrimaryColor,
+        onSaved: (val) => _noteDetails = val,
+        validator: (val) => val.length < lengthLimit ? errorMsg : null,
+        decoration: InputDecoration(
+          hintText: hitTextMsg,
+          icon: Icon(
+            Icons.upload_file,
+            color: Constant.kPrimaryColor,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+//COurse PDF URL
+  _buildURLField(String errorMsg, hitTextMsg, int lengthLimit) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 20, left: 10),
+      padding: EdgeInsets.only(left: 30, right: 10),
+      decoration: BoxDecoration(
+        color: Constant.kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: TextFormField(
+        cursorColor: Constant.kPrimaryColor,
+        onSaved: (val) => _noteUrl = val,
+        validator: (val) => val.length < lengthLimit ? errorMsg : null,
+        decoration: InputDecoration(
+          hintText: hitTextMsg,
+          icon: Icon(
+            Icons.upload_file,
+            color: Constant.kPrimaryColor,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
 
 //5
   _showFormActions() {
@@ -210,15 +356,16 @@ class _UploadNotesState extends State<UploadNotes> {
                     ),
                   ),
                   child: RaisedButton(
-                      child: Text(
-                        "UPLOAD NOTES",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                      elevation: 0.0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      color: Constant.kPrimaryColor,
-                      onPressed: _submit),
+                    child: Text(
+                      "UPLOAD NOTES",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    elevation: 0.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    color: Constant.kPrimaryColor,
+                    onPressed: _submit,
+                  ),
                 ),
         ],
       ),
@@ -246,16 +393,28 @@ class _UploadNotesState extends State<UploadNotes> {
   }
 
   createNoteInFirestore() async {
-    context.read<UploadDownloadNotes>().addNoteToDB(
-          noteId: _noteId,
-          noteTitle: _noteTitle,
-          noteCredit: _noteCredit,
-          creditHour: _creditHour,
-          noteProgram: _selectedProgram,
-          noteSemester: _selectedSemester,
-          coverImage: _coverImage,
-          noteDetails: _noteDetails,
-          noteUrl: _noteUrl,
-        );
+    FirebaseFirestore.instance
+        .collection('noteDetails')
+        .doc(_selectedProgram)
+        .collection(_selectedSemester)
+        .doc(_noteId)
+        .set({
+      "noteId": _noteId,
+      "noteTitle": _noteTitle,
+      "noteCredit": _noteCredit,
+      "creditHour": _creditHour,
+      "noteProgram": _selectedProgram,
+      "noteSemester": _selectedSemester,
+      "coverImage": _coverImage,
+      "noteDetails": _noteDetails,
+      "noteUrl": _noteUrl,
+    }).then(
+      (value) => setState(
+        () {
+          _isSubmitting = false;
+          return 'Notes Uploaded Sucessfully';
+        },
+      ),
+    );
   }
 }

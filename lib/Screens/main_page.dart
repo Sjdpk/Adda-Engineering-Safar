@@ -1,3 +1,4 @@
+import 'package:adda/Admin/upload_note.dart';
 import 'package:adda/Authentication/authentication_service.dart';
 import 'package:adda/Screens/Explore/explore_notes.dart';
 import 'package:adda/Screens/Favourite/favourite_notes.dart';
@@ -26,6 +27,23 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      drawer: Drawer(
+        child: SafeArea(
+          child: ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return UploadNotes();
+                  },
+                ),
+              );
+            },
+            title: Text('Upload Notes'),
+          ),
+        ),
+      ),
       // backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Constant.kPrimaryColor,
