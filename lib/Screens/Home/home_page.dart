@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Components/notes_cards.dart';
+import 'Components/semester_wise_content.dart';
 import 'Components/welcome_message.dart';
 
 class HomePage extends StatefulWidget {
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
           )
         : Scaffold(
             body: DefaultTabController(
-              length: 8,
+              length: 9,
               child: NestedScrollView(
                 headerSliverBuilder: (context, value) {
                   return [
@@ -99,13 +100,32 @@ class _HomePageState extends State<HomePage> {
                         isScrollable: true,
                         tabs: [
                           Tab(text: 'Current Semester'),
-                          Tab(text: '1st Semester'),
-                          Tab(text: '2nd Semester'),
-                          Tab(text: '3rd Semester'),
-                          Tab(text: '4th Semester'),
-                          Tab(text: '5th Semester'),
-                          Tab(text: '7th Semester'),
-                          Tab(text: '8th Semester'),
+                          (_semester == '1 st Semester')
+                              ? Tab(text: 'Current Semester')
+                              : Tab(text: '1st Semester'),
+                          (_semester == '2 nd Semester')
+                              ? Tab(text: 'Current Semester')
+                              : Tab(text: '2nd Semester'),
+                          (_semester == '3 rd Semester')
+                              ? Tab(text: 'Current Semester')
+                              : Tab(text: '3rd Semester'),
+                          (_semester == '4 th Semester')
+                              ? Tab(text: 'Current Semester')
+                              : Tab(text: '4th Semester'),
+                          (_semester == '5 th Semester')
+                              ? Tab(text: 'Current Semester')
+                              : Tab(text: '5th Semester'),
+                          (_semester == '6 th Semester')
+                              ? Tab(text: 'Current Semester')
+                              : Tab(
+                                  text: '6th Semester',
+                                ),
+                          (_semester == '7 th Semester')
+                              ? Tab(text: 'Current Semester')
+                              : Tab(text: '7th Semester'),
+                          (_semester == '8 th Semester')
+                              ? Tab(text: 'Current Semester')
+                              : Tab(text: '8th Semester'),
                         ],
                       ),
                     ),
@@ -113,6 +133,46 @@ class _HomePageState extends State<HomePage> {
                 },
                 body: TabBarView(
                   children: [
+                    semesterWiseContent(
+                      'noteDetails',
+                      _program,
+                      _semester,
+                    ),
+                    semesterWiseContent(
+                      'noteDetails',
+                      _program,
+                      '1 st Semester',
+                    ),
+                    semesterWiseContent(
+                      'noteDetails',
+                      _program,
+                      '2 nd Semester',
+                    ),
+                    semesterWiseContent(
+                      'noteDetails',
+                      _program,
+                      '3 rd Semester',
+                    ),
+                    semesterWiseContent(
+                      'noteDetails',
+                      _program,
+                      '4 th Semester',
+                    ),
+                    semesterWiseContent(
+                      'noteDetails',
+                      _program,
+                      '5 th Semester',
+                    ),
+                    semesterWiseContent(
+                      'noteDetails',
+                      _program,
+                      '6 th Semester',
+                    ),
+                    semesterWiseContent(
+                      'noteDetails',
+                      _program,
+                      '7 th Semester',
+                    ),
                     ListView.builder(
                       padding: EdgeInsets.all(13),
                       shrinkWrap: true,
@@ -133,51 +193,6 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
                     ),
-                    Center(
-                      child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('noteDetails')
-                            .doc(_program)
-                            .collection(_semester)
-                            .snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          return ListView(
-                            children: snapshot.data.docs.map((document) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width / 1.2,
-                                height: MediaQuery.of(context).size.height / 6,
-                                child: Text(
-                                    'Note Name : ' + document['noteTitle']),
-                              );
-                            }).toList(),
-                          );
-                        },
-                      ),
-                    ),
-                    Center(
-                        child:
-                            Icon(Icons.forum, size: 64.0, color: Colors.blue)),
-                    Center(
-                        child:
-                            Icon(Icons.forum, size: 64.0, color: Colors.blue)),
-                    Center(
-                        child:
-                            Icon(Icons.forum, size: 64.0, color: Colors.blue)),
-                    Center(
-                        child:
-                            Icon(Icons.forum, size: 64.0, color: Colors.blue)),
-                    Center(
-                        child:
-                            Icon(Icons.forum, size: 64.0, color: Colors.blue)),
-                    Center(
-                        child:
-                            Icon(Icons.forum, size: 64.0, color: Colors.blue)),
                   ],
                 ),
               ),

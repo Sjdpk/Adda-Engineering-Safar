@@ -1,6 +1,5 @@
 import 'package:adda/Admin/upload_note.dart';
-import 'package:adda/Test/dataload.dart';
-import 'package:adda/Test/dataretrive.dart';
+
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -28,7 +27,7 @@ class DrawerWidget extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return AddUser('Ram', 'Sharma', 22);
+                    return;
                   },
                 ),
               );
@@ -41,7 +40,7 @@ class DrawerWidget extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return GetUserName();
+                    return;
                   },
                 ),
               );
