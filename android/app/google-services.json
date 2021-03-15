@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "115349977464",
+    "firebase_url": "https://adaa-engineering-safar-default-rtdb.firebaseio.com",
+    "project_id": "adaa-engineering-safar",
+    "storage_bucket": "adaa-engineering-safar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115349977464:android:57744039038aab4526f08d",
+        "android_client_info": {
+          "package_name": "com.iamdpk.adda_engineering_safar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115349977464-ckbmm7q854b6l8iitklamgi0nd2ol92i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iamdpk.adda_engineering_safar",
+            "certificate_hash": "843db7c294d73bffdc3e05ac9b4becf870684575"
+          }
+        },
+        {
+          "client_id": "115349977464-bhff8l6r7iukho0bov7r34go0eo9j4hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQK1KwKS2i1pcB___KNvyQbUWWPJ9Lf2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115349977464-bhff8l6r7iukho0bov7r34go0eo9j4hj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
