@@ -1,4 +1,4 @@
-# Adda Engineering Safar Note Collection and Prew App
+# Adda Engineering Safar Note App
 
 Life Assets for Engineering.
 
